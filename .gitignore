@@ -1,0 +1,6 @@
+Moria 3D/Library/
+*.sln
+*.csproj
+Moria 3D/obj/Debug/Assembly-CSharp.dll
+Moria 3D/obj/
+*.suo
