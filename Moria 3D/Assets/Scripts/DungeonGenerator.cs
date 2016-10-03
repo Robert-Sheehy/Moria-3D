@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class DungeonGenerator
 {
-    int hiddenDoor = 3;
-
     Ivector2 startPosition;
     
     
@@ -44,86 +42,77 @@ private int maxNumberOfDoorsInRoom = 5;
         connectedRooms = new bool[numberOfRooms+1];
         connectRooms();
         sparsify();
-
-
-
     }
 
     private void sparsify()
     {
-                    for (int i = 1; i < dimensionOfWorld-1; i++)
-                        for (int j = 1; j < dimensionOfWorld-1; j++)
+        for (int i = 1; i < dimensionOfWorld - 1; i++)
+            for (int j = 1; j < dimensionOfWorld - 1; j++)
+            {
+                Ivector2 pos = new Ivector2(i, j);
+                if (isDeadEnd(pos))
+                {
+                    int choice = UnityEngine.Random.Range(0, 20);
+                    if (choice < 17)
+                        fillCuldeSac(pos);
+
+                    else
+
+                        switch (choice)
                         {
-                            Ivector2 pos = new Ivector2(i,j);
-                            if (isDeadEnd(pos))
-                            {
-                                int choice = UnityEngine.Random.Range(0, 20);
-                                if(choice<17)
-                                fillCuldeSac(pos);
+                            case 17:
+                                burstThrough(pos, (int)Item.list.door);
+                                break;
 
-                                else
+                            case 18:
 
-                                    switch (choice)
-                                    {
-                                        case 17:
-                                            burstThrough(pos, 2);
-                                            break;
-
-                                        case 18:
-
-                                            burstThrough(pos,3) ;// Hidden Door;
-                                            break;
-
-                                    }
-
-
-                            }
+                                burstThrough(pos, (int)Item.list.hiddenDoor);// Hidden Door;
+                                break;
 
                         }
+                }
+
+            }
     }
 
-    private void burstThrough(Ivector2 pos, int doorId)
+    private void burstThrough(Ivector2 pos, int id)
     {
         Ivector2 dir = new Ivector2(1, 0);
-     
+
         Ivector2 next = pos;
         for (int k = 0; k < 4; k++)
         {
-            if (isSuitableDoor(pos + dir,dir))
+            if (isSuitableDoor(pos + dir, dir))
             {
-                setMazeAt(pos + dir, doorId);
+                setMazeAt(pos + dir, id);
 
             }
             dir = ~dir;
         }
- 
-
     }
 
     private void fillCuldeSac(Ivector2 pos)
     {
-    
+
         Ivector2 dir = new Ivector2(1, 0);
         int total = 0;
         Ivector2 next = pos;
         for (int k = 0; k < 4; k++)
         {
             if (mazeAt(pos + dir) != 1)
-            { 
+            {
                 total++;
                 next = pos + dir;
-               
             }
             dir = ~dir;
         }
 
         if (total == 1)
         {
-           // Debug.Log(pos.x + " , " + pos.y);
+            // Debug.Log(pos.x + " , " + pos.y);
             setMazeAt(pos, 1);
             fillCuldeSac(next);
         }
-
     }
 
     private bool isDeadEnd(Ivector2 pos)
@@ -142,28 +131,23 @@ private int maxNumberOfDoorsInRoom = 5;
 
     }
 
-
-   
-
     private void connectRooms()
     {
-                for (int i = 0; i < dimensionOfWorld; i++)
-                    for (int j = 0; j < dimensionOfWorld; j++)
-                    {
-                     //   Debug.Log(" Position " + i + " , " + j + " space Id " + maze[i, j]);
-                        if ((maze[i, j] < 0) && (!connectedRooms[-maze[i,j]]))
-                        {
-                            int numberOfDoors = UnityEngine.Random.Range(0, maxNumberOfDoorsInRoom);
-                            connectedRooms[-maze[i,j]] =true;
+        for (int i = 0; i < dimensionOfWorld; i++)
+            for (int j = 0; j < dimensionOfWorld; j++)
+            {
+                //   Debug.Log(" Position " + i + " , " + j + " space Id " + maze[i, j]);
+                if ((maze[i, j] < 0) && (!connectedRooms[-maze[i, j]]))
+                {
+                    int numberOfDoors = UnityEngine.Random.Range(0, maxNumberOfDoorsInRoom);
+                    connectedRooms[-maze[i, j]] = true;
 
-                            for (int d = 0; d < maxNumberOfDoorsInRoom;d++)
+                    for (int d = 0; d < maxNumberOfDoorsInRoom; d++)
 
-                            connectRoomAt(i, j);
-                    
+                        connectRoomAt(i, j);
+                }
 
-                        }
-
-                    }
+            }
     }
 
     private void connectRoomAt(int i, int j)
@@ -188,24 +172,31 @@ private int maxNumberOfDoorsInRoom = 5;
 
     private int randomDoor()
     {
+        /*
         int i = UnityEngine.Random.Range(0, 4);
-          if (i==1) return randomDoor();
-else return i;
+        if (i == 1) return randomDoor();
+        else return i;
+        */
+        int[] doorItems = new int[] {
+            (int)Item.list.emptySpace,
+            (int)Item.list.hiddenDoor,
+            (int)Item.list.door
+        };
 
+        return doorItems[UnityEngine.Random.Range(0, doorItems.Length)];
     }
 
     private bool isSuitableDoor(Ivector2 position,Ivector2 exitDir)
     {
+
         return (mazeAt(position) == 1) && (mazeAt(position + ~exitDir) == 1) && (mazeAt(position - ~exitDir) == 1) && (mazeAt(position + exitDir) != 1) && (mazeAt(position + exitDir) != mazeAt(position - exitDir));
     }
 
-    private Ivector2 goToEdge(Ivector2 position,int RoomId, Ivector2 exitDirection)
+    private Ivector2 goToEdge(Ivector2 position, int RoomId, Ivector2 exitDirection)
     {
         Ivector2 next;
         for (next = position; mazeAt(next) == RoomId; next += exitDirection) { }
         return next;
- 
-        
     }
 
     private bool IsInRoom(int RoomId, Ivector2 position)
@@ -216,16 +207,10 @@ else return i;
     private int mazeAt(Ivector2 query)
     {
         if (isOnMap(query)) return maze[query.x, query.y];
-     
-         //   Debug.Log("Index O.O.R");
-            return -999;
-     
-        
+
+        //   Debug.Log("Index O.O.R");
+        return -999;
     }
-
-
-  
-
 
     private void setMazeAt(Ivector2 Pos, int value)
     {
@@ -236,21 +221,12 @@ else return i;
     private bool isOnMap(Ivector2 posn)
     {
         return isOnMap(posn.x, posn.y);
-    } 
+    }
 
-private bool isOnMap(int i,int j)
-{
-    return (i >= 0) && (i < dimensionOfWorld) && (j >= 0) & (j < dimensionOfWorld);
-} 
-    
-    
-
-
-
-
-
-
-
+    private bool isOnMap(int i, int j)
+    {
+        return (i >= 0) && (i < dimensionOfWorld) && (j >= 0) & (j < dimensionOfWorld);
+    }
 
     private void FillWithWalls()
     {
@@ -262,62 +238,38 @@ private bool isOnMap(int i,int j)
             }
     }
 
-
-
-
- 
-
-      
-            
-
-     
-      
-
-
     private void generateSubMazeFromHere(Ivector2 position, Ivector2 preferredDirection)
     {
 
-      //  Debug.Log("Generate SubMaze Position" + position.x + " , " + position.y);
+        //  Debug.Log("Generate SubMaze Position" + position.x + " , " + position.y);
 
         setMazeAt(position, 0);
 
-        for (Ivector2[] availables = getAvailableDirections(position,preferredDirection); availables.Length > 0 ; availables = getAvailableDirections(position,preferredDirection) )
+        for (Ivector2[] availables = getAvailableDirections(position, preferredDirection); availables.Length > 0; availables = getAvailableDirections(position, preferredDirection))
         {
-       
+
             int choice = UnityEngine.Random.Range(0, 10);
             Ivector2 chosenDirection = availables[0];
 
+            if ((choice > 8) && (availables.Length > 1)) chosenDirection = availables[UnityEngine.Random.Range(1, availables.Length)];
 
-    
-              if ((choice > 8)  && (availables.Length > 1)) chosenDirection = availables[UnityEngine.Random.Range(1, availables.Length)];
-         
+            setMazeAt(position + chosenDirection, 0);
 
-                setMazeAt(position + chosenDirection, 0);
-  
-                generateSubMazeFromHere(position + 2 * chosenDirection, chosenDirection);
-
-         
-            }
-
-
-
+            generateSubMazeFromHere(position + 2 * chosenDirection, chosenDirection);
         }
-
-
-
-    
+    }
 
     private Ivector2[] getAvailableDirections(Ivector2 position, Ivector2 preferredDirection)
     {
         List<Ivector2> listOfAvailable = new List<Ivector2>();
 
         Ivector2 dir = preferredDirection;
-        for (int i = 0;i<4;i++)
+        for (int i = 0; i < 4; i++)
         {
-        //    Debug.Log("Checking " + (position + 2 * dir).x + " , " + (position + 2 * dir).y);
-            if (mazeAt(position + 2 * dir) == 1) 
+            //    Debug.Log("Checking " + (position + 2 * dir).x + " , " + (position + 2 * dir).y);
+            if (mazeAt(position + 2 * dir) == 1)
             {
-           //     Debug.Log("Yes Adding Direction " + dir.x + " , " + dir.y);
+                //     Debug.Log("Yes Adding Direction " + dir.x + " , " + dir.y);
                 listOfAvailable.Add(dir);
 
             }
@@ -338,39 +290,29 @@ private bool isOnMap(int i,int j)
 
     }
 
-
-
-
-
     private bool canGererateSubMazeFromHere(Ivector2 startPosition)
     {
         bool canDo = false;
-            for (int i = startPosition.x - 2; i <= startPosition.x+2; i++)
-                for (int j = startPosition.y - 2; j <= startPosition.y+2; j++)
-                    canDo = canDo && (maze[i,j] == 1);
-    return canDo;
+        for (int i = startPosition.x - 2; i <= startPosition.x + 2; i++)
+            for (int j = startPosition.y - 2; j <= startPosition.y + 2; j++)
+                canDo = canDo && (maze[i, j] == 1);
+        return canDo;
     }
- 
-
 
     private Ivector2 newRandomDirection()
     {
         return newRandomDirection(new Ivector2(0, 0));
     }
 
-
-
-
-
     private void GenerateRooms()
     {
         for (int roomNumber = 1; roomNumber <= numberOfRooms; roomNumber++)
         {
-            int iSize = 2*UnityEngine.Random.Range(minRoomDimension/2, maxRoomDimension/2)+1;
-            int jSize = 2*UnityEngine.Random.Range(minRoomDimension/2, maxRoomDimension/2)+1;
+            int iSize = 2 * UnityEngine.Random.Range(minRoomDimension / 2, maxRoomDimension / 2) + 1;
+            int jSize = 2 * UnityEngine.Random.Range(minRoomDimension / 2, maxRoomDimension / 2) + 1;
 
-            int iPosition = 2*(UnityEngine.Random.Range(2, dimensionOfWorld - iSize - 2)/2)+1;
-            int jPosition = 2*(UnityEngine.Random.Range(2, dimensionOfWorld - jSize - 2)/2)+1;
+            int iPosition = 2 * (UnityEngine.Random.Range(2, dimensionOfWorld - iSize - 2) / 2) + 1;
+            int jPosition = 2 * (UnityEngine.Random.Range(2, dimensionOfWorld - jSize - 2) / 2) + 1;
             if (canPlaceRoom(iPosition, jPosition, iSize, jSize))
                 generateRoom(iPosition, jPosition, iSize, jSize, roomNumber);
             else roomNumber--;
@@ -409,14 +351,8 @@ private bool isOnMap(int i,int j)
 
     internal int[,] generate()
     {
-
-
         return maze;
-
     }
-
-
-
 
     private Ivector2 newRandomDirection(Ivector2 direction)
     {
@@ -424,7 +360,8 @@ private bool isOnMap(int i,int j)
         int roll = UnityEngine.Random.Range(0, 4);
         switch (roll)
         {
-            case 0: output = new Ivector2(1, 0);
+            case 0:
+                output = new Ivector2(1, 0);
                 break;
             case 1:
                 output = new Ivector2(-1, 0);
@@ -447,16 +384,10 @@ private bool isOnMap(int i,int j)
     private void initialSetupforConnectnessArray()
     {
         connectedRooms = new bool[numberOfRooms + 1];
-
     }
 
     private bool positionOutOfMap(int currenti, int currentj)
     {
         return (currenti < 0) || (currenti >= dimensionOfWorld) || (currenti < 0) || (currenti >= dimensionOfWorld);
     }
-
-
-
-
-
 }

@@ -4,7 +4,8 @@ using System.Collections;
 public class LevelController : MonoBehaviour
 {
 
-    public GameObject spherePrefab;
+    public Transform wallPrefab;
+    public Transform doorPrefab;
 
     int[,] world;
     bool[,] spawned;
@@ -13,36 +14,27 @@ public class LevelController : MonoBehaviour
     int minRoomDimension = 3;
     int maxRoomDimension = 20;
     int numberOfRooms = 40;
-    public Transform samplePrefab;
     private int startPosi, startPosj;
     // Use this for initialization
     DungeonGenerator dungeon;
-    public int PosI, PosJ, DirI, DirJ;
+    private int PosI, PosJ, DirI, DirJ;
     private int maxNumbersOfDoorsinRooms = 3;
 
     void Start()
     {
-       dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms,maxNumbersOfDoorsinRooms);
+        dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms, maxNumbersOfDoorsinRooms);
         world = dungeon.generate();
         spawned = new bool[dimensionOfWorld, dimensionOfWorld];
- 
- 
-
-
-       
-
-     //for (int i = 0; i < 100; i++)
-        {
-    // PlaceItemIdRandomlyOnMap(2);
-        }
-
-
+        
         SpawnWorldItemsAroundPoint(1000, UnityEngine.Random.Range(0, 1), UnityEngine.Random.Range(0, 1));
 
     }
 
+    public void isHiddenDoor(Ivector2 position)
+    {
 
 
+    }
 
     void Update()
     {
@@ -52,7 +44,7 @@ public class LevelController : MonoBehaviour
 
     }
 
-    void SpawnWorldItemsAroundPoint(int radius, int x, int y)
+    public void SpawnWorldItemsAroundPoint(int radius, int x, int y)
     {
         Vector2 pos = new Vector2(x, y);
         int ri = 0;
@@ -120,24 +112,17 @@ public class LevelController : MonoBehaviour
         return spawned[i, j];
     }
 
-    private void PlaceItemIdRandomlyOnMap(int itemId)
+    private void PlaceItemIdRandomlyOnMap(Item.list id)
     {
         Vector2 randomPos;
         do
         {
 
-            randomPos = new Vector2(UnityEngine.Random.Range(1, dimensionOfWorld-2), UnityEngine.Random.Range(1, dimensionOfWorld-2));
+            randomPos = new Vector2(UnityEngine.Random.Range(1, dimensionOfWorld - 2), UnityEngine.Random.Range(1, dimensionOfWorld - 2));
         } while (world[(int)randomPos.x, (int)randomPos.y] > 0);
-        
-        world[(int)randomPos.x, (int)randomPos.y] = itemId;
+
+        world[(int)randomPos.x, (int)randomPos.y] = (int)id;
     }
-
-
-
-
-
-
-
 
     private Vector2 newRandomDirection(Vector2 direction)
     {
@@ -156,16 +141,11 @@ public class LevelController : MonoBehaviour
             case 3:
                 output = new Vector2(0, -1);
                 break;
-
-
-
         }
         if (output != direction) return output;
         else return newRandomDirection(direction);
 
     }
-
-    
 
     private void SpawnObjectInWorld(int i, int j)
     {
@@ -173,23 +153,27 @@ public class LevelController : MonoBehaviour
 
         spawned[i, j] = true;
         int charId = world[i, j];
+
+        Object currentItem;
+
         switch (charId)
         {
+            case (int)Item.list.wall:
+                currentItem = Instantiate(wallPrefab, correctPosition(i, j), Quaternion.identity);
+                currentItem.name = "wall";
+                break;
 
-            case 1:
-                Instantiate(samplePrefab, correctPosition(i, j), Quaternion.identity);
+            case (int)Item.list.hiddenDoor:
+                currentItem = Instantiate(wallPrefab, correctPosition(i, j), Quaternion.identity);
+                currentItem.name = "hiddenDoor";
                 break;
-            case 2:
-                Instantiate(samplePrefab, correctPosition(i, j), Quaternion.identity);
-                break;
-            case 3:
-                Instantiate(samplePrefab, correctPosition(i, j), Quaternion.identity);
+
+            case (int)Item.list.door:
+                currentItem = Instantiate(doorPrefab, correctPosition(i, j), Quaternion.identity);
+                currentItem.name = "door";
                 break;
         }
-
-
     }
-
 
 
     private Quaternion newRandomDirection()
@@ -222,6 +206,4 @@ public class LevelController : MonoBehaviour
     {
         return new Vector3(i, 0, j);
     }
-
-   
 }
