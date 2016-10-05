@@ -20,10 +20,8 @@ public class DungeonGenerator
 
 
 
-private int RoomId;
-private int maxNumberOfDoorsInRoom = 5;
-
-
+    private int RoomId;
+    private int maxNumberOfDoorsInRoom = 5;
 
     public DungeonGenerator(int dimensionOfWorld, int minRoomDimension, int maxRoomDimension, int numberOfRooms, int roomDoors)
     {
@@ -189,7 +187,13 @@ private int maxNumberOfDoorsInRoom = 5;
     private bool isSuitableDoor(Ivector2 position,Ivector2 exitDir)
     {
 
-        return (mazeAt(position) == 1) && (mazeAt(position + ~exitDir) == 1) && (mazeAt(position - ~exitDir) == 1) && (mazeAt(position + exitDir) != 1) && (mazeAt(position + exitDir) != mazeAt(position - exitDir));
+        return  (mazeAt(position) == 1) &&
+                (mazeAt(position + ~exitDir) == 1) && 
+                (mazeAt(position - ~exitDir) == 1) && 
+                (mazeAt(position + exitDir) != 1) && 
+                (mazeAt(position + exitDir) != mazeAt(position - exitDir)) &&
+                (position.x > 0 && position.x < dimensionOfWorld - 1) &&
+                (position.y > 0 && position.y < dimensionOfWorld - 1);
     }
 
     private Ivector2 goToEdge(Ivector2 position, int RoomId, Ivector2 exitDirection)
