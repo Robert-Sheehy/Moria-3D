@@ -3,26 +3,26 @@
   <Class Name="LootableItem">
     <Position X="2.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAggAAAAAAAABAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAggAAAAAAAABAAAAAAAAABAAAAAAAAAEQ=</HashCode>
       <FileName>Assets\Scripts\LootableItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Weapon">
     <Position X="0.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAACAAAAAAAAAAAIAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABACAAAAAAAAAAAIAAAAAACAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Weapon.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Armor">
-    <Position X="2.75" Y="2.75" Width="1.5" />
+    <Position X="2.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgAAAAAABAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Armor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Food">
-    <Position X="5" Y="2.75" Width="1.5" />
+    <Position X="6.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Food.cs</FileName>
@@ -40,13 +40,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAACAAAAAIAAAAAACAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Rings.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Ivector2">
-    <Position X="12.5" Y="1.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
-      <FileName>Ivector2.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
