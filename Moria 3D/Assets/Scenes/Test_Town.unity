@@ -174,7 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b44770e2a110ea42835be45c2b94a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorNumber: 0
   wallPrefab: {fileID: 100000, guid: a24919ed08a85f24c9c2d953f2339e2d, type: 3}
+  doorPrefab: {fileID: 172190, guid: d33b9ce129953d84d90b08807a1590c8, type: 2}
 --- !u!4 &774488569
 Transform:
   m_ObjectHideFlags: 0

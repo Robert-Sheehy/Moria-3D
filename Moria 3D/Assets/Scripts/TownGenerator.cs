@@ -9,8 +9,10 @@ public class TownGenerator : MonoBehaviour
     int minRoomDimension = 8;
     int maxRoomDimension = 12;
     int numberOfRooms = 6;
+    public int doorNumber = 0;
     int startPosi, startPosj;
     public GameObject wallPrefab;
+    public GameObject doorPrefab;
 
     // Use this for initialization
     void Start()
@@ -21,7 +23,12 @@ public class TownGenerator : MonoBehaviour
 
         for (int i = 0; i < dimensionOfWorld; i++)
             for (int j = 0; j < dimensionOfWorld; j++)
-                world[i, j] = 1;
+            {
+                world[i, j] = 0;
+
+                if (i == 0 || j == 0 || i == dimensionOfWorld - 1 || j == dimensionOfWorld - 1)
+                    world[i, j] = -7;
+            }
 
         generateLevel();
 
@@ -54,6 +61,7 @@ public class TownGenerator : MonoBehaviour
                 generateRoom(iPos, jPos, iSize, jSize, roomNumber);
 
             else roomNumber--;
+
         }
     }
 
@@ -66,17 +74,22 @@ public class TownGenerator : MonoBehaviour
 
                 /*i = Mathf.Clamp(i, 0, dimensionOfWorld - 1);
                 j = Mathf.Clamp(j, 0, dimensionOfWorld - 1);*/
-                canPlace = canPlace && (world[i, j] == 1);
+                canPlace = canPlace && valueInarrayRange(i) && valueInarrayRange(j) && (world[i, j] == 0);
 
             }
 
         return canPlace;
     }
 
+    private bool valueInarrayRange(int i)
+    {
+        return (i >= 0) && (i < dimensionOfWorld);
+    }
+
     private void generateRoom(int iPos, int jPos, int iSize, int jSize, int roomNumber)
     {
         int randPos = UnityEngine.Random.Range(2, minRoomDimension - 1);
-        int randNum = UnityEngine.Random.Range(1, 3);
+        int randNum = UnityEngine.Random.Range(1, 5);
 
         for (int i = iPos; i < iPos + iSize; i++)
             for (int j = jPos; j < jPos + jSize; j++)
@@ -86,11 +99,43 @@ public class TownGenerator : MonoBehaviour
                 if(randNum == 1)
                 {
                     if (i == iPos && j == jPos + jSize - randPos)
-                        world[i, j] = 1;
+                    {
+                        world[i, j] = 0;
+                        doorNumber = -roomNumber;
+                        Instantiate(doorPrefab, correctPos(i,j), Quaternion.identity);
+                        doorPrefab.name = "Door Number " + doorNumber;
+                    }
+                }
+                else if(randNum == 2)
+                {
+                    if (j == jPos && i == iPos + iSize - randPos)
+                    {
+                        world[i, j] = 0;
+                        doorNumber = -roomNumber;
+                        Instantiate(doorPrefab, correctPos(i, j), Quaternion.identity);
+                        doorPrefab.name = "Door Number " + doorNumber;
+                    }   
+                }
+                else if(randNum == 3)
+                {
+                    if (i == iPos + iSize - 1 && j == jPos + jSize - randPos)
+                    {
+                        world[i, j] = 0;
+                        doorNumber = -roomNumber;
+                        Instantiate(doorPrefab, correctPos(i, j), Quaternion.identity);
+                        doorPrefab.name = "Door Number " + doorNumber;
+                    }
                 }
                 else
-                    if (j == jPos && i == iPos + iSize - randPos)
-                        world[i, j] = 1;
+                {
+                    if (j == jPos + jSize - 1 && i == iPos + iSize - randPos)
+                    {
+                        world[i, j] = 0;
+                        doorNumber = -roomNumber;
+                        Instantiate(doorPrefab, correctPos(i, j), Quaternion.identity);
+                        doorPrefab.name = "Door Number " + doorNumber;
+                    }
+                }
             }
     }
 
@@ -98,12 +143,17 @@ public class TownGenerator : MonoBehaviour
     {
         int charId = world[i, j];
 
-        if (charId != 1)
+        if (charId < 0)
             Instantiate(wallPrefab, correctPos(i, j), Quaternion.identity);
     }
 
     private Vector3 correctPos(int i, int j)
     {
         return new Vector3(i, 0, j);
+    }
+
+    private void changeScene()
+    {
+
     }
 }
