@@ -6,6 +6,9 @@ public class LevelController : MonoBehaviour
 
     public Transform wallPrefab;
     public Transform doorPrefab;
+    
+    //player object for testing
+    public GameObject player;
 
     int[,] world;
     bool[,] spawned;
@@ -22,29 +25,59 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
+
+        player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms, maxNumbersOfDoorsinRooms);
         world = dungeon.generate();
         spawned = new bool[dimensionOfWorld, dimensionOfWorld];
-        
-        SpawnWorldItemsAroundPoint(1000, UnityEngine.Random.Range(0, 1), UnityEngine.Random.Range(0, 1));
-
     }
 
-    public void isHiddenDoor(Ivector2 position)
+    public bool isHiddenDoor(Ivector2 position)
     {
+        return (world[position.x, position.y] == (int)Item.list.hiddenDoor);
+    }
 
-
+    void showHiddenDoorsAroundPoint(float radius, Ivector2 position)
+    {
+        for(int i = 0; i < dimensionOfWorld; i++) 
+            for(int j = 0; j < dimensionOfWorld; j++)
+            {
+                if(Vector2.Distance(new Vector2(position.x, position.y), new Vector2(i, j)) < radius)
+                {
+                    if (isHiddenDoor(position))
+                    {
+                        world[i, j] = (int)Item.list.door;
+                    }
+                }
+            }
     }
 
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            player.transform.position += new Vector3(0, 0, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            player.transform.position += new Vector3(-1, 0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            player.transform.position += new Vector3(0, 0, -1);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            player.transform.position += new Vector3(1, 0, 0);
+        }
+        SpawnWorldItemsAroundPoint(5, (int)player.transform.position.x, (int)player.transform.position.z);
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
             dungeon.TestgetAvailableDirections(PosI, PosJ, DirI, DirJ);
-
+        */
     }
 
-    public void SpawnWorldItemsAroundPoint(int radius, int x, int y)
+    public void SpawnWorldItemsAroundPoint(float radius, int x, int y)
     {
         Vector2 pos = new Vector2(x, y);
         int ri = 0;
@@ -54,7 +87,7 @@ public class LevelController : MonoBehaviour
         {
             for (int j = 0; j < dimensionOfWorld; j++)
             {
-                if (Vector2.Distance(pos, new Vector2(i, j)) < radius)
+                if (Vector2.Distance(pos, new Vector2(i, j)) < radius && spawned[i, j] == false)
                 {
                     SpawnObjectInWorld(i, j);
                     if (world[i, j] < 0)
@@ -64,12 +97,12 @@ public class LevelController : MonoBehaviour
 
                     }
                 }
-
             }
         }
         if (roomFound)
             makeRoomVisible(ri, rj);
 
+        showHiddenDoorsAroundPoint(2f   , new Ivector2(x, y));
     }
 
     void makeRoomVisible(int x, int y)

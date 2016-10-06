@@ -8,7 +8,6 @@ public class Item {
         emptySpace = 0,
         wall = 1,
         door = 2,
-        hiddenDoor = 3,
-
+        hiddenDoor = 3
     }
 }
