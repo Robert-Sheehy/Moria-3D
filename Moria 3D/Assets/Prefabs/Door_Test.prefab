@@ -11,8 +11,8 @@ GameObject:
   - 33: {fileID: 3353872}
   - 65: {fileID: 6515474}
   - 23: {fileID: 2305500}
-  m_Layer: 0
-  m_Name: Door Number -6
+  m_Layer: 8
+  m_Name: Door_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

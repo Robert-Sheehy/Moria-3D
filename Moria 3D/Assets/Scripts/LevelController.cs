@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class LevelController : MonoBehaviour
     //player object for testing
     public GameObject player;
 
-    int[,] world;
+    public int[,] world;
     bool[,] spawned;
     int dimensionOfWorld = 101;
 
@@ -19,7 +20,7 @@ public class LevelController : MonoBehaviour
     int numberOfRooms = 40;
     private int startPosi, startPosj;
     // Use this for initialization
-    DungeonGenerator dungeon;
+    public DungeonGenerator dungeon;
     private int PosI, PosJ, DirI, DirJ;
     private int maxNumbersOfDoorsinRooms = 3;
 
@@ -32,28 +33,85 @@ public class LevelController : MonoBehaviour
         spawned = new bool[dimensionOfWorld, dimensionOfWorld];
     }
 
-    public bool isHiddenDoor(Ivector2 position)
+    public bool isDoor(Ivector2 position)
     {
-        return (world[position.x, position.y] == (int)Item.list.hiddenDoor);
+        return (world[position.x, position.y] == (int)Item.list.hiddenDoor || world[position.x, position.y] == (int)Item.list.door);
     }
 
-    void showHiddenDoorsAroundPoint(float radius, Ivector2 position)
+    void openDoorsAroundPoint(float radius, Ivector2 position)
     {
         for(int i = 0; i < dimensionOfWorld; i++) 
             for(int j = 0; j < dimensionOfWorld; j++)
             {
                 if(Vector2.Distance(new Vector2(position.x, position.y), new Vector2(i, j)) < radius)
                 {
-                    if (isHiddenDoor(position))
+                    if (isDoor(new Ivector2(i, j)))
                     {
-                        world[i, j] = (int)Item.list.door;
+                        swapWorldObjects(new Ivector2(i, j), Item.list.emptySpace);
                     }
                 }
             }
     }
 
+    public int queryWorld(int x, int y)
+    {
+        if (x > dimensionOfWorld - 1 || x < 0 || y > dimensionOfWorld - 1 || y < 0)
+        {
+            return world[x, y];
+        }
+        else return (int)Item.list.emptySpace;
+    }
+
+    private void swapWorldObjects(Ivector2 position, Item.list toReplace)
+    {
+        GameObject g;
+        try
+        {
+            g = getGameObjectAtWorldPosition(position, new GameObject[] { player });
+        } catch(System.Exception e)
+        {
+            throw (new System.Exception("unable to swap objects: " + e.ToString()));
+        }
+
+        Destroy(g);
+        world[position.x, position.y] = (int)toReplace;
+        SpawnObjectInWorld(position.x, position.y);
+    }
+
+    public GameObject getGameObjectAtWorldPosition(Ivector2 position)
+    {
+        return getGameObjectAtWorldPosition(position, new GameObject[0]);
+    }
+
+    public GameObject getGameObjectAtWorldPosition(Ivector2 position, GameObject[] ignorelist) 
+    {
+        Collider[] c;
+        GameObject result = new GameObject();
+        result.transform.position = new Vector3(float.MinValue, 0, float.MinValue);
+        c = Physics.OverlapSphere(correctPosition(position.x, position.y), 0.25F);
+        if(c.Length > 0)
+        {
+            foreach(Collider collider in c)
+            {
+                if(Vector3.Distance(collider.transform.position, result.transform.position) > Vector3.Distance(collider.transform.position, correctPosition(position.x, position.y))){
+                    foreach(GameObject g in ignorelist)
+                    {
+                        if(collider.gameObject != g)
+                        {
+                            result = collider.gameObject;
+                        }
+                    }
+                }
+            }
+        } else throw (new System.Exception("No GameObject found at position " + position.x + ", " + position.y));
+
+        return result;
+    }
+
     void Update()
     {
+
+        //KeyController.runOnKey(KeyCode.W, KeyController.keyPressType.keyDown, moveForwards()); // run given method on keypress
         if (Input.GetKeyDown(KeyCode.W))
         {
             player.transform.position += new Vector3(0, 0, 1);
@@ -102,7 +160,7 @@ public class LevelController : MonoBehaviour
         if (roomFound)
             makeRoomVisible(ri, rj);
 
-        showHiddenDoorsAroundPoint(2f   , new Ivector2(x, y));
+        openDoorsAroundPoint(2f, new Ivector2(x, y));
     }
 
     void makeRoomVisible(int x, int y)
@@ -231,8 +289,6 @@ public class LevelController : MonoBehaviour
 
 
         return Quaternion.identity;
-
-
     }
 
     private Vector3 correctPosition(int i, int j)
