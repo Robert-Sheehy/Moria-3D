@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class LevelController : MonoBehaviour
 {
@@ -50,6 +51,11 @@ public class LevelController : MonoBehaviour
                     }
                 }
             }
+    }
+
+    internal int queryLevel(int x, int z)
+    {
+        return world[x, z];
     }
 
     void Update()
@@ -187,7 +193,7 @@ public class LevelController : MonoBehaviour
         spawned[i, j] = true;
         int charId = world[i, j];
 
-        Object currentItem;
+        UnityEngine.Object currentItem;
 
         switch (charId)
         {

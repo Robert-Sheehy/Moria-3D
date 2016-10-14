@@ -81,7 +81,7 @@ public class ObjectManager : MonoBehaviour {
 
     private void loadAllFood(){
 
-        Foods = new List<Food>;
+        Foods = new List<Food>();
         Foods.Add(new Food("Pint Of Fine Wine", 400, 0, 2));
         Foods.Add(new Food("Pint of Fine Ale",500,0,2));
         Foods.Add(new Food("Hard biscuit",500,0,1));
