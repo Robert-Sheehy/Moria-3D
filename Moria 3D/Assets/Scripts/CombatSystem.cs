@@ -7,7 +7,9 @@ public class CombatSystem : MonoBehaviour {
     private int randomHitNumber2;
     private int hitChance;
     private int criticalBonus;
-    private int randomCritNumber = Random.Range(1, 5000);
+    
+ 
+  
     
 
 
@@ -29,7 +31,13 @@ public class CombatSystem : MonoBehaviour {
 
 
         int  totalDamage = (attacker.weaponDamage  * attacker.critcalBonus) + attacker.weaponDamageBonus + attacker.itemBonusDamage + attacker.strBonusDamage;
-        victim.ApplyDamage(totalDamage);
+        
+       
+            victim.ApplyDamage(totalDamage);
+            print("Damaged at" + totalDamage);
+       
+       
+          
     }
 
     public void Hit(CharacterCombat attacker, CharacterCombat victim)
@@ -42,16 +50,19 @@ public class CombatSystem : MonoBehaviour {
         if (randomHitNumber == 1)
         {
             print("you missed");
+            
+            
         }
         else if ((randomHitNumber == 20) || (randomHitNumber2 > monsterAC))
         {
             Attack(attacker, victim);
+            
         }
     }
 
     public int CritialHitBonus(CharacterCombat attacker, CharacterCombat victim)
     {
-        //int randomCritNumber = Random.Range(1, 5000);
+        int randomCritNumber = Random.Range(1, 5000);
         if (randomCritNumber < criticalBonus)
         {
             return (attacker.weaponHitBonus + attacker.itemHitBonus + attacker.DEXHitBonus + attacker.STRHitBonus) * 5 + attacker.fightingAbility + (attacker.weightOfWeapon) * 10 - attacker.fightingAbilityAt0;
