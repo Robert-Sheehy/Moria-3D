@@ -11,11 +11,8 @@ GameObject:
   - 33: {fileID: 3353872}
   - 65: {fileID: 6515474}
   - 23: {fileID: 2305500}
-<<<<<<< HEAD
-  m_Layer: 0
-=======
+
   m_Layer: 8
->>>>>>> 00c0bb96be3a9188c70f56df19fba35b3966113b
   m_Name: Door_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}

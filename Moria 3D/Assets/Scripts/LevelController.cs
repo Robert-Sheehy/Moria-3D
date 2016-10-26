@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-<<<<<<< HEAD
-using System;
-=======
 using System.Collections.Generic;
->>>>>>> 00c0bb96be3a9188c70f56df19fba35b3966113b
 
 public class LevelController : MonoBehaviour
 {
@@ -57,12 +53,7 @@ public class LevelController : MonoBehaviour
             }
     }
 
-<<<<<<< HEAD
-    internal int queryLevel(int x, int z)
-    {
-        return world[x, z];
-=======
-    public int queryWorld(int x, int y)
+    public int queryLevel(int x, int y)
     {
         if (x > dimensionOfWorld - 1 || x < 0 || y > dimensionOfWorld - 1 || y < 0)
         {
@@ -115,7 +106,6 @@ public class LevelController : MonoBehaviour
         } else throw (new System.Exception("No GameObject found at position " + position.x + ", " + position.y));
 
         return result;
->>>>>>> 00c0bb96be3a9188c70f56df19fba35b3966113b
     }
 
     void Update()
