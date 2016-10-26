@@ -5,10 +5,10 @@ using System;
 public class CharacterControl : MonoBehaviour {
 
     enum CharacterState { WaitingForInput,Moving}
-
+    LevelController level;
     CharacterState currently = CharacterState.WaitingForInput;
-    float cameraDistance = 5;
-    float cameraHeight = 2;
+    float cameraDistance = 2;
+    float cameraHeight = 1;
     Vector3 currentTarget;
     int currenti, currentj;
     Vector3 lerpStart;
@@ -17,6 +17,8 @@ public class CharacterControl : MonoBehaviour {
     private float timer;
 
     float duration = 1f;
+    private float FocusDistance =5f;
+    private bool isFirstTime;
 
 
     // Use this for initialization
@@ -25,7 +27,7 @@ public class CharacterControl : MonoBehaviour {
         currentj = 5;
         transform.position = worldPositionOf(currenti, currentj);
 
-
+        level = FindObjectOfType<LevelController>();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +39,7 @@ public class CharacterControl : MonoBehaviour {
         {
 
             case CharacterState.WaitingForInput:
+                isFirstTime = true;
         if (shouldMoveForward()) MoveForward();
         if (shouldMoveForwardRight()) MoveForwardRight();
 		if (shouldMoveForwardLeft()) MoveForwardLeft();
@@ -50,17 +53,26 @@ public class CharacterControl : MonoBehaviour {
 
             case CharacterState.Moving:
 
+                if (isFirstTime && (level.queryLevel((int)lerpFinish.x, (int)lerpFinish.z) == 1))
 
-                
-                timer += Time.deltaTime;
-                transform.position = Vector3.Lerp(lerpStart, lerpFinish, timer / duration);
-                transform.rotation = Quaternion.LookRotation(lerpFinish - lerpStart);
-
-
-                if (timer > duration)
-                {
-                    transform.position = lerpFinish;
                     currently = CharacterState.WaitingForInput;
+
+
+
+                else
+                {
+                    isFirstTime = false;
+
+                    timer += Time.deltaTime;
+                    transform.position = Vector3.Lerp(lerpStart, lerpFinish, timer / duration);
+                    transform.rotation = Quaternion.LookRotation(lerpFinish - lerpStart);
+
+
+                    if (timer > duration)
+                    {
+                        transform.position = lerpFinish;
+                        currently = CharacterState.WaitingForInput;
+                    }
                 }
    
                 break;
@@ -73,13 +85,20 @@ public class CharacterControl : MonoBehaviour {
 
     private void updateCamera()
     {
-        Camera.main.transform.position = transform.position - cameraDistance * transform.forward;
+        Camera.main.transform.position = transform.position - cameraDistance * transform.forward + cameraHeight * transform.up;
+        Camera.main.transform.LookAt(transform.position+ FocusDistance *transform.forward);
+        
+
+        
     }
 
     private Vector3 worldPositionOf(int currenti, int currentj)
     {
         return new Vector3(currenti, 0, currentj);
     }
+
+
+   
 
     private void MoveForward()
     {
