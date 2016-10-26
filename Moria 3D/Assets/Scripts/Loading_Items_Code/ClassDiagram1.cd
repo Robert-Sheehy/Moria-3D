@@ -1,45 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="LootableItem">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Position X="3.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAggAAAAAAAABAAAAAAAAABAAAAAAAAAEQ=</HashCode>
-      <FileName>Assets\Scripts\LootableItem.cs</FileName>
+      <FileName>Assets\Scripts\Loading_Items_Code\LootableItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Weapon">
     <Position X="0.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABACAAAAAAAAAAAIAAAAAACAAAAAEAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Weapon.cs</FileName>
+      <FileName>Assets\Scripts\Loading_Items_Code\Weapon.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Armor">
-    <Position X="2.75" Y="3.25" Width="1.5" />
+    <Position X="5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgAAAAAABAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Armor.cs</FileName>
+      <FileName>Assets\Scripts\Loading_Items_Code\Armor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Food">
-    <Position X="6.75" Y="3" Width="1.5" />
+    <Position X="11.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Food.cs</FileName>
+      <FileName>Assets\Scripts\Loading_Items_Code\Food.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Diggers">
-    <Position X="1.75" Y="4.75" Width="1.5" />
+    <Position X="2.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAgAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Diggers.cs</FileName>
+      <FileName>Assets\Scripts\Loading_Items_Code\Diggers.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Ammo">
     <Position X="3.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAACAAAAAIAAAAAACAAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Rings.cs</FileName>
+      <FileName>Assets\Scripts\Loading_Items_Code\Rings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Helm">
+    <Position X="6.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Amulet">
+    <Position X="8.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Amulet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ring">
+    <Position X="8.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ring.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gloves">
+    <Position X="10" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Gloves.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Boots">
+    <Position X="6.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Boots.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shield">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shield.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cloak">
+    <Position X="11.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cloak.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
