@@ -127,7 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 446092, guid: 4dd7574ec20dbbf46b8eccbf646006d7, type: 2}
   doorPrefab: {fileID: 469602, guid: d33b9ce129953d84d90b08807a1590c8, type: 2}
-  player: {fileID: 0}
 --- !u!1 &970961859
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,10 +207,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 970961859}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

@@ -42,6 +42,17 @@ public class DungeonGenerator
         sparsify();
     }
 
+    public Ivector2 getRandomEmptySpace()
+    {
+        Ivector2 pos;
+        do
+        {
+            pos = new Ivector2(UnityEngine.Random.Range(0, dimensionOfWorld), UnityEngine.Random.Range(0, dimensionOfWorld));
+        } while (maze[pos.x, pos.y] != (int)Item.list.emptySpace);
+
+        return pos;
+    }
+
     private void sparsify()
     {
         for (int i = 1; i < dimensionOfWorld - 1; i++)

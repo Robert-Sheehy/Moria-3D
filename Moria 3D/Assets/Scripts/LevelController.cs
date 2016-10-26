@@ -4,12 +4,10 @@ using System.Collections.Generic;
 
 public class LevelController : MonoBehaviour
 {
-
     public Transform wallPrefab;
     public Transform doorPrefab;
     
-    //player object for testing
-    public GameObject player;
+    private GameObject player;
 
     public int[,] world;
     bool[,] spawned;
@@ -26,9 +24,12 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
-
-        player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms, maxNumbersOfDoorsinRooms);
+        player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        Ivector2 emptySpace = dungeon.getRandomEmptySpace();
+        player.transform.position = correctPosition(emptySpace.x, emptySpace.y);
+        player.AddComponent<CharacterControl>();
+
         world = dungeon.generate();
         spawned = new bool[dimensionOfWorld, dimensionOfWorld];
     }
@@ -112,6 +113,7 @@ public class LevelController : MonoBehaviour
     {
 
         //KeyController.runOnKey(KeyCode.W, KeyController.keyPressType.keyDown, moveForwards()); // run given method on keypress
+        /*
         if (Input.GetKeyDown(KeyCode.W))
         {
             player.transform.position += new Vector3(0, 0, 1);
@@ -128,6 +130,7 @@ public class LevelController : MonoBehaviour
         {
             player.transform.position += new Vector3(1, 0, 0);
         }
+        */
         SpawnWorldItemsAroundPoint(5, (int)player.transform.position.x, (int)player.transform.position.z);
         /*
         if (Input.GetKeyDown(KeyCode.Space))
