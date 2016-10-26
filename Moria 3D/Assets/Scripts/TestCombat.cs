@@ -14,6 +14,7 @@ public class TestCombat : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.A)) combat.Attack(A, B);
         if (Input.GetKeyDown(KeyCode.B)) combat.Attack(B, A);
+        
 
 
     }
