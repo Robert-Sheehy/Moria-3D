@@ -216,7 +216,7 @@ public class DungeonGenerator
         return -999;
     }
 
-    private void setMazeAt(Ivector2 Pos, int value)
+    public void setMazeAt(Ivector2 Pos, int value)
     {
         maze[Pos.x, Pos.y] = value;
     }
