@@ -17,7 +17,11 @@ public class CharacterCombat : MonoBehaviour  {
     public int DEXHitBonus;
     public int STRHitBonus; //strenght hit bonus
 
+    public int AC;
+
+
     private int health;
+
 
 
     // Use this for initialization
