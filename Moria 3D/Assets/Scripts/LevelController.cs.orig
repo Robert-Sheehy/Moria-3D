@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+<<<<<<< HEAD
+using System;
+=======
 using System.Collections.Generic;
+>>>>>>> 00c0bb96be3a9188c70f56df19fba35b3966113b
 
 public class LevelController : MonoBehaviour
 {
+
     public Transform wallPrefab;
     public Transform doorPrefab;
     
-    private GameObject player;
+    //player object for testing
+    public GameObject player;
 
     public int[,] world;
     bool[,] spawned;
@@ -24,12 +30,9 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
-        dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms, maxNumbersOfDoorsinRooms);
-        player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        Ivector2 emptySpace = dungeon.getRandomEmptySpace();
-        player.transform.position = correctPosition(emptySpace.x, emptySpace.y);
-        player.AddComponent<CharacterControl>();
 
+        player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms, maxNumbersOfDoorsinRooms);
         world = dungeon.generate();
         spawned = new bool[dimensionOfWorld, dimensionOfWorld];
     }
@@ -54,7 +57,12 @@ public class LevelController : MonoBehaviour
             }
     }
 
-    public int queryLevel(int x, int y)
+<<<<<<< HEAD
+    internal int queryLevel(int x, int z)
+    {
+        return world[x, z];
+=======
+    public int queryWorld(int x, int y)
     {
         if (x > dimensionOfWorld - 1 || x < 0 || y > dimensionOfWorld - 1 || y < 0)
         {
@@ -107,13 +115,13 @@ public class LevelController : MonoBehaviour
         } else throw (new System.Exception("No GameObject found at position " + position.x + ", " + position.y));
 
         return result;
+>>>>>>> 00c0bb96be3a9188c70f56df19fba35b3966113b
     }
 
     void Update()
     {
 
         //KeyController.runOnKey(KeyCode.W, KeyController.keyPressType.keyDown, moveForwards()); // run given method on keypress
-        /*
         if (Input.GetKeyDown(KeyCode.W))
         {
             player.transform.position += new Vector3(0, 0, 1);
@@ -130,7 +138,6 @@ public class LevelController : MonoBehaviour
         {
             player.transform.position += new Vector3(1, 0, 0);
         }
-        */
         SpawnWorldItemsAroundPoint(5, (int)player.transform.position.x, (int)player.transform.position.z);
         /*
         if (Input.GetKeyDown(KeyCode.Space))
