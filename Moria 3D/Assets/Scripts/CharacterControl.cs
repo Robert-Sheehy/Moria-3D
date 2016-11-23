@@ -16,7 +16,7 @@ public class CharacterControl : MonoBehaviour {
 
     private float timer;
 
-    float duration = 1f;
+    float duration = .5f;
     private float FocusDistance =5f;
     private bool isFirstTime;
 
@@ -34,11 +34,12 @@ public class CharacterControl : MonoBehaviour {
 	void Update () {
 
         updateCamera();
-
+   
         switch (currently)
         {
 
             case CharacterState.WaitingForInput:
+            
                 isFirstTime = true;
         if (shouldMoveForward()) MoveForward();
         if (shouldMoveForwardRight()) MoveForwardRight();
@@ -53,16 +54,20 @@ public class CharacterControl : MonoBehaviour {
 
             case CharacterState.Moving:
 
-                if (isFirstTime && (level.queryLevel((int)lerpFinish.x, (int)lerpFinish.z) == 1))
-
+         
+                if ((level.queryLevel((int)lerpFinish.x, (int)lerpFinish.z) == 1))
+                {
+             
                     currently = CharacterState.WaitingForInput;
-
-
-
+                    currenti = (int)lerpStart.x;
+                    currentj = (int)lerpStart.z;
+                    transform.position = lerpStart;
+             
+                }
+             
                 else
                 {
-                    isFirstTime = false;
-
+                    print("actually");
                     timer += Time.deltaTime;
                     transform.position = Vector3.Lerp(lerpStart, lerpFinish, timer / duration);
                     transform.rotation = Quaternion.LookRotation(lerpFinish - lerpStart);
@@ -110,7 +115,7 @@ public class CharacterControl : MonoBehaviour {
         print("F i before" + currenti + " j before" + currentj);
 
 	    if (destDir.x > 0.1f) currenti++;
-        else if (destDir.x < 0.1f) currenti--;
+        else if (destDir.x < -0.1f) currenti--;
         if (destDir.z > 0.1f) currentj++;
         else if (destDir.z < -0.1f) currentj--;
 
@@ -125,14 +130,14 @@ public class CharacterControl : MonoBehaviour {
     private void MoveForwardRight()
     {
         print("fr");
-
+        print(transform.forward);
         lerpStart = transform.position;
-        Vector3 destDir = Quaternion.AngleAxis(45, Vector3.up) * transform.forward;
-
+        Vector3 destDir =  Quaternion.AngleAxis(45, Vector3.up) * transform.forward;
+        print(destDir.x + " " + destDir.y + " " + destDir.z);
         print("FR i before" + currenti + " j before" + currentj);
 
         if (destDir.x > 0.1f) currenti++;
-        else if (destDir.x < 0.1f) currenti--;
+        else if (destDir.x < -0.1f) currenti--;
         if (destDir.z > 0.1f) currentj++;
         else if (destDir.z < -0.1f) currentj--;
 
@@ -155,7 +160,7 @@ public class CharacterControl : MonoBehaviour {
         print("FL i before" + currenti + " j before" + currentj);
 
         if (destDir.x > 0.1f) currenti++;
-        else if (destDir.x < 0.1f) currenti--;
+        else if (destDir.x < -0.1f) currenti--;
         if (destDir.z > 0.1f) currentj++;
         else if (destDir.z < -0.1f) currentj--;
 
