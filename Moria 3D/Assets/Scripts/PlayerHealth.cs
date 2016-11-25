@@ -52,7 +52,17 @@ public class PlayerHealth : MonoBehaviour
         }
 
         damaged = false;
+
+        if (cast) {
+
+
+        }
+
+
+
     }
+
+
 
 
     public void TakeDamage(int amount)
@@ -70,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentMP <= 0 && !OutOfMana)
         {
 
-            //Death(); 
+            //OutOfMana(); 
         }
 
     }
