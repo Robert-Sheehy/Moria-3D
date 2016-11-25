@@ -84,7 +84,7 @@ public class LevelController : MonoBehaviour
 
     public int queryLevel(int x, int y)
     {
-        if (x > dimensionOfWorld - 1 || x < 0 || y > dimensionOfWorld - 1 || y < 0)
+        if (x < (dimensionOfWorld - 1) && (x >= 0) &&  (y < dimensionOfWorld - 1) && (y >= 0))
         {
             return world[x, y];
         }
