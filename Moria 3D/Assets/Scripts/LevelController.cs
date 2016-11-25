@@ -22,6 +22,8 @@ public class LevelController : MonoBehaviour
     private int PosI, PosJ, DirI, DirJ;
     private int maxNumbersOfDoorsinRooms = 3;
 
+    private ObjectManager objManager = new ObjectManager();
+
     void Start()
     {
         dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms, maxNumbersOfDoorsinRooms);
@@ -32,26 +34,52 @@ public class LevelController : MonoBehaviour
 
         world = dungeon.generate();
         spawned = new bool[dimensionOfWorld, dimensionOfWorld];
+
     }
 
-    public bool isDoor(Ivector2 position)
+    public Item.list getDoor(Ivector2 position)
     {
-        return (world[position.x, position.y] == (int)Item.list.hiddenDoor || world[position.x, position.y] == (int)Item.list.door);
+        switch(world[position.x, position.y]){
+
+            case (int)Item.list.hiddenDoor:
+                return Item.list.hiddenDoor;
+            case (int)Item.list.door:
+                return Item.list.door;
+            default:
+                return Item.list.emptySpace;
+        }
+        //return (world[position.x, position.y] == (int)Item.list.hiddenDoor || world[position.x, position.y] == (int)Item.list.door);
     }
 
-    void openDoorsAroundPoint(float radius, Ivector2 position)
+    public Ivector2 getRandomEmptyspace()
+    {
+        Ivector2 pos;
+        do
+        {
+            pos = new Ivector2(Random.Range(0, dimensionOfWorld - 1), Random.Range(0, dimensionOfWorld - 1));
+        } while (queryLevel(pos) != (int)Item.list.emptySpace);
+
+        return pos;
+    }
+
+    void openDoorsAroundPoint(float radius, Ivector2 position, float chance)
     {
         for(int i = 0; i < dimensionOfWorld; i++) 
             for(int j = 0; j < dimensionOfWorld; j++)
             {
                 if(Vector2.Distance(new Vector2(position.x, position.y), new Vector2(i, j)) < radius)
                 {
-                    if (isDoor(new Ivector2(i, j)))
-                    {
+                    if ((getDoor(new Ivector2(i, j)) == Item.list.door) || (getDoor(new Ivector2(i, j)) == Item.list.hiddenDoor && Random.Range(0.0F, 1.0F) < chance)) {
+
                         swapWorldObjects(new Ivector2(i, j), Item.list.emptySpace);
                     }
                 }
             }
+    }
+
+    public int queryLevel(Ivector2 pos)
+    {
+        return queryLevel(pos.x, pos.y);
     }
 
     public int queryLevel(int x, int y)
@@ -163,7 +191,7 @@ public class LevelController : MonoBehaviour
         if (roomFound)
             makeRoomVisible(ri, rj);
 
-        openDoorsAroundPoint(2f, new Ivector2(x, y));
+        openDoorsAroundPoint(2f, new Ivector2(x, y), 0.2F);
     }
 
     void makeRoomVisible(int x, int y)
