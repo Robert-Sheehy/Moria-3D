@@ -233,7 +233,7 @@ public class LevelController : MonoBehaviour
 
         return spawned[i, j];
     }
-
+    
     private void PlaceItemIdRandomlyOnMap(Item.list id)
     {
         Vector2 randomPos;
@@ -322,7 +322,7 @@ public class LevelController : MonoBehaviour
         return Quaternion.identity;
     }
 
-    private Vector3 correctPosition(int i, int j)
+    public Vector3 correctPosition(int i, int j)
     {
         return new Vector3(i, 0, j);
     }

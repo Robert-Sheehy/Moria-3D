@@ -25,10 +25,12 @@ public class CharacterControl : MonoBehaviour {
     void Start() {
         currenti = 2;
         currentj = 5;
-        transform.position = worldPositionOf(currenti, currentj);
+        
 
         level = FindObjectOfType<LevelController>();
-	}
+        Ivector2 emptySpace = level.getRandomEmptyspace(); //assumes LevelController is attached to same object as CharacterControl
+        transform.position = level.correctPosition(emptySpace.x, emptySpace.y);
+    }
 	
 	// Update is called once per frame
 	void Update () {
