@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class ObjectManager : MonoBehaviour {
 
 
-    List<Weapon> Weapons;
-    List<Armor> Armors;
+    public List<Weapon> Weapons;
+    public List<Armor> Armors;
     List<Food> Foods;
 
 
