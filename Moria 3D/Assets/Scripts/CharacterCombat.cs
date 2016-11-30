@@ -21,6 +21,7 @@ public class CharacterCombat : MonoBehaviour  {
 
 
     private int health;
+    internal int constitution;
 
 
 

@@ -152,9 +152,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Constitution : 0
-
-'
+  m_Text: "Constitution : \n"
 --- !u!222 &51577494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -228,9 +226,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Strenght : 0
-
-'
+  m_Text: 'Strenght : '
 --- !u!222 &74308201
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -412,7 +408,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 5, y: 0}
+  m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &559429499
@@ -595,7 +591,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 5, y: 0}
+  m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &631396106
@@ -787,7 +783,7 @@ GameObject:
   - 222: {fileID: 974193775}
   - 114: {fileID: 974193774}
   m_Layer: 5
-  m_Name: current health text
+  m_Name: Current HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -843,9 +839,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Current HP : 0/0
-
-'
+  m_Text: "Current HP : \n"
 --- !u!222 &974193775
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -999,6 +993,7 @@ GameObject:
   - 223: {fileID: 1396122091}
   - 114: {fileID: 1396122090}
   - 114: {fileID: 1396122089}
+  - 114: {fileID: 1396122093}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1090,6 +1085,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1396122093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1396122088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ba750111b62524c8f44b143d6b471e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1478903280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1206,7 @@ RectTransform:
   m_RootOrder: 8
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -311, y: 236}
+  m_AnchoredPosition: {x: -332, y: 236}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1527672235
@@ -1241,11 +1247,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 768445543}
   m_FillRect: {fileID: 1370537573}
   m_HandleRect: {fileID: 768445542}
-  m_Direction: 1
+  m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1285,7 +1291,7 @@ RectTransform:
   m_RootOrder: 9
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -311, y: 215}
+  m_AnchoredPosition: {x: -332, y: 215}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532982635
@@ -1326,11 +1332,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1362435484}
   m_FillRect: {fileID: 336792349}
   m_HandleRect: {fileID: 1362435483}
-  m_Direction: 1
+  m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1363,8 +1369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449f19a6d2d715a46888d207c8eaf623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallPrefab: {fileID: 0}
-  doorPrefab: {fileID: 0}
+  wallPrefab: {fileID: 446092, guid: 4dd7574ec20dbbf46b8eccbf646006d7, type: 2}
+  doorPrefab: {fileID: 469602, guid: d33b9ce129953d84d90b08807a1590c8, type: 2}
 --- !u!4 &1622904844
 Transform:
   m_ObjectHideFlags: 0
@@ -1491,7 +1497,7 @@ GameObject:
   - 222: {fileID: 1766904271}
   - 114: {fileID: 1766904270}
   m_Layer: 5
-  m_Name: 'Max health text '
+  m_Name: Current MP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1547,7 +1553,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Current MP: 0/0'
+  m_Text: 'Current MP : '
 --- !u!222 &1766904271
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1621,9 +1627,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Dexterity : 0
-
-'
+  m_Text: "Dexterity : \n"
 --- !u!222 &1769004743
 CanvasRenderer:
   m_ObjectHideFlags: 0
