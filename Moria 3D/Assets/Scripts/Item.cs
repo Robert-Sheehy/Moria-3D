@@ -9,9 +9,8 @@ public class Item {
         wall = 1,
         door = 2,
         hiddenDoor = 3,
-        //placeholders for mesh replacement
-        cube = 4,
-        sphere = 5,
-        cylinder = 6
+        weapon = 10,
+        armor = 11,
+        food = 12
     }
 }

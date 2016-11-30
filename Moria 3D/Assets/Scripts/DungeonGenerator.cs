@@ -40,6 +40,16 @@ public class DungeonGenerator
         connectedRooms = new bool[numberOfRooms+1];
         connectRooms();
         sparsify();
+        addItems(50);
+    }
+
+    private void addItems(int amount)
+    {
+        for(int i = 0; i < amount; i++)
+        {
+            Ivector2 itemPos = getRandomEmptySpace();
+            maze[itemPos.x, itemPos.y] = UnityEngine.Random.Range(10, 13);
+        }
     }
 
     public Ivector2 getRandomEmptySpace()

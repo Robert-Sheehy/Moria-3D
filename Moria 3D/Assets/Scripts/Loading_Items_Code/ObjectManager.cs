@@ -6,9 +6,9 @@ using System.Collections.Generic;
 public class ObjectManager : MonoBehaviour {
 
 
-    List<Weapon> Weapons;
-    List<Armor> Armors;
-    List<Food> Foods;
+    internal List<Weapon> Weapons;
+    internal List<Armor> Armors;
+    internal List<Food> Foods;
 
 
     // Use this for initialization
