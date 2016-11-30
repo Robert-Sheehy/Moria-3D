@@ -9,8 +9,8 @@ public class InventoryManager : MonoBehaviour {
     int curInventoryNumWeight;
     List<LootableItem> inventoryItems;
     List<LootableItem> equipeditems;
-    public Text text;
-    private int maxInventoryNumberOfItems = 20;
+    public GameObject text;
+    int maxInventoryNumberOfItems = 20;
 
     LootableItem weaponSlot;
     /*LootableItem mainWeaponSlot;
@@ -27,13 +27,45 @@ public class InventoryManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-	
-	}
+        inventoryItems = new List<LootableItem>();
+        equipeditems = new List<LootableItem>();
+
+        /*foreach (LootableItem LI in this.GetComponent<ObjectManager>().Weapons)
+        {
+            AddItem(LI);
+        }*/
+
+        for (int i = 0; i < inventoryItems.Count; i++)
+            Debug.Log(inventoryItems[i].Description);
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        /*if (inventoryFull())
-            text.enabled = true;*/
+        if (inventoryFull())
+            text.SetActive(true);
+        else
+            text.SetActive(false);
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            equipWeapon(0);
+            Debug.Log("Equiped " + equipeditems[0].Description);
+        }
+
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            AddItem(GetComponent<ObjectManager>().Weapons[0]);
+                Debug.Log("Added " + inventoryItems[0].Description);
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            removeItemAt(0);
+                Debug.Log("Removed " + inventoryItems[0].Description);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+            Debug.Log(inventoryItems.Count + " in inventory");
 	}
 
     public LootableItem removeItemAt(int index)
@@ -51,16 +83,22 @@ public class InventoryManager : MonoBehaviour {
 
     public bool AddItem(LootableItem itemToAdd)
     {
-        if (inventoryFull()) return false;
-
-        inventoryItems.Add(itemToAdd);
-        return true;
+        if (inventoryFull())
+            return false;
+        else
+        {
+            inventoryItems.Add(itemToAdd);
+            return true;
+        }
 
     }
 
     private bool inventoryFull()
     {
-        return inventoryItems.Count >= maxInventoryNumberOfItems;
+        if (inventoryItems.Count >= maxInventoryNumberOfItems)
+            return true;
+        else
+            return false;
     }
 
     public LootableItem equipItem(int itemToEquip)
@@ -68,7 +106,7 @@ public class InventoryManager : MonoBehaviour {
 
         LootableItem item = null;
 
-        if(itemToEquip < inventoryItems.Count)
+        if(itemToEquip <= inventoryItems.Count)
         {
             equipeditems.Add(inventoryItems[itemToEquip]);
             item = equipeditems[itemToEquip];
@@ -80,6 +118,13 @@ public class InventoryManager : MonoBehaviour {
             armorSlot = item;
 
         return item;
+    }
 
+    public void equipWeapon(int weaponToEquip)
+    {
+        if (weaponToEquip <= inventoryItems.Count)
+        {
+            equipeditems.Add(inventoryItems[weaponToEquip]);
+        }
     }
 }
