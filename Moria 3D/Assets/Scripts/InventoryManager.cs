@@ -11,7 +11,7 @@ public class InventoryManager : MonoBehaviour {
     List<LootableItem> equipedItems;
     public GameObject text;
     int maxInventoryNumberOfItems = 20;
-
+   /// h
     LootableItem weaponSlot;
     /*LootableItem mainWeaponSlot;
     LootableItem secondaryWeaponSlot;*/
