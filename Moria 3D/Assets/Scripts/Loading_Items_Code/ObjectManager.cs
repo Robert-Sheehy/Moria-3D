@@ -10,6 +10,10 @@ public class ObjectManager : MonoBehaviour {
     public List<Armor> Armors;
     List<Food> Foods;
 
+    public GameObject WallPreFab;
+    public GameObject WeaponPrefab;
+    public GameObject FoodPrefab;
+    public GameObject ArmorPrefab;
 
     // Use this for initialization
     void Start () {
@@ -25,6 +29,9 @@ public class ObjectManager : MonoBehaviour {
         loadAllFood();
    
     }
+
+
+   
 
     private void loadAllWeapons()
     {
@@ -141,7 +148,49 @@ public class ObjectManager : MonoBehaviour {
         else return getRandomItem(levelOfCharacter);
     }
 
+    public GameObject getObjectWithIdOf(Item.list Id)
+    {
+        switch (Id)
+        {
 
+            case Item.list.wall:
+                return Instantiate(WallPreFab);
+                break;
+
+
+            case Item.list.Food:
+                ItemControl newFood = Instantiate(FoodPrefab).GetComponent<ItemControl>();
+
+                newFood.myDetails = getRandomFood(3);
+                print(newFood.myDetails.Description);
+                return newFood.gameObject;
+                break;
+
+            case Item.list.Armor:
+                ItemControl newArmor = Instantiate(ArmorPrefab).GetComponent<ItemControl>();
+
+                newArmor.myDetails = getRandomArmor(3);
+                print(newArmor.myDetails.Description);
+                return newArmor.gameObject;
+                break;
+
+            case Item.list.Weapon:
+
+                ItemControl newWeapon = Instantiate(WeaponPrefab).GetComponent<ItemControl>();
+
+                newWeapon.myDetails = getRandomWeapon(3);
+                print(newWeapon.myDetails.Description);
+                return newWeapon.gameObject;
+
+            default:
+
+                return new GameObject();
+        }
+
+
+
+
+    }
     // Update is called once per frame
     void Update () {
 	

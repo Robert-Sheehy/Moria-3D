@@ -159,6 +159,7 @@ GameObject:
   - 92: {fileID: 1630509884}
   - 124: {fileID: 1630509883}
   - 81: {fileID: 1630509882}
+  - 114: {fileID: 1630509887}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -234,6 +235,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1630509887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1630509881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6245492298455204aaa4a6dc365318e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1919880326
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4984ce3943345d4fada99a176bbdbfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WallPreFab: {fileID: 100000, guid: a24919ed08a85f24c9c2d953f2339e2d, type: 3}
+  WeaponPrefab: {fileID: 137896, guid: 6a3cd9fc709f54b4aac09e18901ee104, type: 2}
+  FoodPrefab: {fileID: 135916, guid: 3251e5d5a1092ed4d82c11ddb0b182bc, type: 2}
+  ArmorPrefab: {fileID: 125178, guid: a2251a0d71075b04bb85cc0fe9f468d3, type: 2}
 --- !u!4 &1919880328
 Transform:
   m_ObjectHideFlags: 0
