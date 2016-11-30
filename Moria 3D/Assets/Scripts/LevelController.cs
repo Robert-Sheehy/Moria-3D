@@ -7,7 +7,7 @@ public class LevelController : MonoBehaviour
     public Transform wallPrefab;
     public Transform doorPrefab;
     
-    private GameObject player;
+    public GameObject player;
 
     public int[,] world;
     bool[,] spawned;
