@@ -4,13 +4,15 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHP = 100;                                 //players starting HP
-    public int maxMP = 100;                                   //players starting MP
-    public int currentHP;                                   //player's current health
-    public int currentMP;                                   //player's current health
-    public Slider HP_Slider;                                    //references player HP bar
-    public Slider MP_Slider;                                    // reference to playr's MP bar
-    public Image damageImage;                                   //screen reaction to taking damage
+    public float maxHP = 100.0f;                                   //players starting HP
+    public float maxMP = 100.0f;                                   //players starting MP
+    public float currentHP;                                     //player's current HP
+    public float currentMP;                                     //player's current MP
+    public int HPregen = 5;                                       //player's current HP Regen rate  
+    public int MPregen = 3;                                       //player's current MP Regen rate  
+    public Slider HP_Slider;                                  //references player HP bar
+    public Slider MP_Slider;                                  // reference to playr's MP bar
+    public Image damageImage;                                 //screen reaction to taking damage
     public float flashSpeed = 5f;
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
@@ -18,12 +20,23 @@ public class PlayerHealth : MonoBehaviour
 
 
     CharacterController playerMovement;                         //reference player movemnt
-    bool isDead = false;                                                //if player is dead
+    bool isDead = false;                                        //if player is dead
     bool OutOfMana = false;
     bool damaged;                                               //if player is damaged
-    bool cast;                                                  //if player casts                                                         
+    bool cast;                                                  //if player casts 
+    bool RegenHP = false;                                       //if Health is regening
+    bool RegenMP = false;                                       //if Mana is regening       
 
     // Use this for initialization
+    void awake()
+    {
+        currentHP = maxHP;
+        currentMP = maxMP;
+
+    }
+
+
+
     void Start()
     {
 
@@ -53,12 +66,19 @@ public class PlayerHealth : MonoBehaviour
 
         damaged = false;
 
-        if (cast) {
+        if (cast)
+        {
 
 
         }
-
-
+        while (currentHP < maxHP && !isDead)
+        {
+            RegenHP = true;
+        }
+        while (currentMP < maxMP && !OutOfMana)
+        {
+            RegenMP = true;
+        }
 
     }
 
@@ -72,34 +92,33 @@ public class PlayerHealth : MonoBehaviour
         currentHP -= amount;
         HP_Slider.value = currentHP;
 
-        if (currentHP <= 0 && !isDead)
+        if (currentHP <= 0 && !isDead && currentMP <= 0 && !OutOfMana)
         {
 
-            //Death(); 
+            isDead = true;
+            OutOfMana = true;
         }
-        if (currentMP <= 0 && !OutOfMana)
-        {
 
-            //OutOfMana(); 
-        }
+
+     
 
     }
     public void UseMagic(int amount)
     {
 
-        damaged = true;
+        cast = true;
         currentMP -= amount;
-        HP_Slider.value = currentHP;
+        MP_Slider.value = currentMP;
 
-        if (currentHP <= 0 && !isDead)
+        if (currentMP <= 0 && !OutOfMana)
         {
-
-            //Death(); 
+            isDead = true;
+            //playerMovement.enabled = false;
         }
-        if (currentMP <= 0 && !isDead)
+        if (currentMP <= 0 && OutOfMana)
         {
 
-            //Death(); 
+            //RegenMP start 
         }
 
     }
@@ -113,6 +132,4 @@ public class PlayerHealth : MonoBehaviour
 
 
 }
-
-
 
