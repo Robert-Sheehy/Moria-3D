@@ -6,9 +6,11 @@ using System.Collections.Generic;
 public class ObjectManager : MonoBehaviour {
 
 
-    public List<Weapon> Weapons;
-    public List<Armor> Armors;
-    List<Food> Foods;
+
+    internal List<Weapon> Weapons;
+    internal List<Armor> Armors;
+    internal List<Food> Foods;
+
 
     public GameObject WallPreFab;
     public GameObject WeaponPrefab;

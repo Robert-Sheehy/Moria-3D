@@ -16,5 +16,10 @@ public class Item {
         Weapon = 7,
         Armor = 8,
         Food = 9
+
+        weapon = 10,
+        armor = 11,
+        food = 12
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class LevelController : MonoBehaviour
 {
@@ -22,18 +23,19 @@ public class LevelController : MonoBehaviour
     private int PosI, PosJ, DirI, DirJ;
     private int maxNumbersOfDoorsinRooms = 3;
 
-    private ObjectManager objManager = new ObjectManager();
+    private ObjectManager objManager;
 
     void Start()
     {
         dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms, maxNumbersOfDoorsinRooms);
         player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        objManager = gameObject.AddComponent<ObjectManager>();
         Ivector2 emptySpace = dungeon.getRandomEmptySpace();
         player.transform.position = correctPosition(emptySpace.x, emptySpace.y);
         player.AddComponent<CharacterControl>();
-
-        world = dungeon.generate();
         spawned = new bool[dimensionOfWorld, dimensionOfWorld];
+        world = dungeon.generate();
+     
 
     }
 
@@ -56,7 +58,7 @@ public class LevelController : MonoBehaviour
         Ivector2 pos;
         do
         {
-            pos = new Ivector2(Random.Range(0, dimensionOfWorld - 1), Random.Range(0, dimensionOfWorld - 1));
+            pos = new Ivector2(UnityEngine.Random.Range(0, dimensionOfWorld - 1), UnityEngine.Random.Range(0, dimensionOfWorld - 1));
         } while (queryLevel(pos) != (int)Item.list.emptySpace);
 
         return pos;
@@ -69,7 +71,7 @@ public class LevelController : MonoBehaviour
             {
                 if(Vector2.Distance(new Vector2(position.x, position.y), new Vector2(i, j)) < radius)
                 {
-                    if ((getDoor(new Ivector2(i, j)) == Item.list.door) || (getDoor(new Ivector2(i, j)) == Item.list.hiddenDoor && Random.Range(0.0F, 1.0F) < chance)) {
+                    if ((getDoor(new Ivector2(i, j)) == Item.list.door) || (getDoor(new Ivector2(i, j)) == Item.list.hiddenDoor && UnityEngine.Random.Range(0.0F, 1.0F) < chance)) {
 
                         swapWorldObjects(new Ivector2(i, j), Item.list.emptySpace);
                     }
@@ -166,6 +168,39 @@ public class LevelController : MonoBehaviour
         */
     }
 
+    private void spawnRandomItem(Item.list type, Ivector2 worldPosition)
+    {
+        GameObject wItem = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        wItem.GetComponent<Transform>().position = correctPosition(worldPosition.x, worldPosition.y);
+        wItem.GetComponent<Transform>().localScale = new Vector3(0.2F, 0.2F, 0.2F);
+        LootableItem item = null;
+        switch (type)
+        {
+            case Item.list.armor:
+                item = getRandomItem(objManager.Armors.ToArray());
+                break;
+            case Item.list.food:
+                item = getRandomItem(objManager.Foods.ToArray());
+                break;
+            case Item.list.weapon:
+                item = getRandomItem(objManager.Weapons.ToArray());
+                break;
+        }
+
+        try
+        {
+            wItem.name = item.Description;
+        } catch(Exception e)
+        {
+            wItem.name = "null item";
+        }
+    }
+
+    private LootableItem getRandomItem(LootableItem[] itemlist)
+    {
+        return itemlist[UnityEngine.Random.Range(0, itemlist.Length)];
+    }
+
     public void SpawnWorldItemsAroundPoint(float radius, int x, int y)
     {
         Vector2 pos = new Vector2(x, y);
@@ -175,8 +210,8 @@ public class LevelController : MonoBehaviour
         for (int i = 0; i < dimensionOfWorld; i++)
         {
             for (int j = 0; j < dimensionOfWorld; j++)
-            {
-                if (Vector2.Distance(pos, new Vector2(i, j)) < radius && spawned[i, j] == false)
+            {   
+                if ((Vector2.Distance(pos, new Vector2(i, j)) < radius) && !spawned[i, j])
                 {
                     SpawnObjectInWorld(i, j);
                     if (world[i, j] < 0)
@@ -293,6 +328,18 @@ public class LevelController : MonoBehaviour
             case (int)Item.list.door:
                 currentItem = Instantiate(doorPrefab, correctPosition(i, j), Quaternion.identity);
                 currentItem.name = "door";
+                break;
+
+            case (int)Item.list.armor:
+                spawnRandomItem(Item.list.armor, new Ivector2(i, j));
+                break;
+
+            case (int)Item.list.weapon:
+                spawnRandomItem(Item.list.armor, new Ivector2(i, j));
+                break;
+
+            case (int)Item.list.food:
+                spawnRandomItem(Item.list.armor, new Ivector2(i, j));
                 break;
         }
     }
