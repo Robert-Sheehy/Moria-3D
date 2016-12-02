@@ -18,7 +18,7 @@ public class Weapon:LootableItem
         Damage = dam;
         Weight = weight;
         Cost = cost;
-        ID = 10;
+        ID = (int)Item.list.weapon;
     }
 
     public Weapon(String description, int hit, int dam, float weight,int level, int cost,int buffHit, int buffDam):this(description,  hit,  dam, weight,level,  cost)

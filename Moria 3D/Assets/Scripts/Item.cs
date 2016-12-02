@@ -13,13 +13,10 @@ public class Item {
         cube = 4,
         sphere = 5,
         cylinder = 6,
-        Weapon = 7,
-        Armor = 8,
-        Food = 9
+        weapon = 101,
+        armor = 102,
+        food = 103,
 
-        weapon = 10,
-        armor = 11,
-        food = 12
 
     }
 }
