@@ -6,7 +6,7 @@ public class CombatSystem : MonoBehaviour {
     private int monsterAC;
     private int randomHitNumber2;
     private int hitChance;
-    private int criticalBonus;
+
     
  
   

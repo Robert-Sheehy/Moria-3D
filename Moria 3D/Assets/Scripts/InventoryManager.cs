@@ -8,20 +8,22 @@ public class InventoryManager : MonoBehaviour {
     int maxInventoryWeight = 20;
     int curInventoryNumWeight;
     List<LootableItem> inventoryItems;
-    List<LootableItem> equipedItems;
+
+    internal List<LootableItem> equipeditems;
     public GameObject text;
     int maxInventoryNumberOfItems = 20;
-   /// h
-    LootableItem weaponSlot;
-    /*LootableItem mainWeaponSlot;
-    LootableItem secondaryWeaponSlot;*/
-    LootableItem armorSlot;
-    /*LootableItem helmetSlot;
-    LootableItem chestplateSlot;
-    LootableItem gaunletSlot;
-    LootableItem bootSlot;
-    LootableItem ringSlot;
-    LootableItem amuletSlot;*/
+
+    internal LootableItem weaponSlot;
+    internal LootableItem mainWeaponSlot;
+    internal LootableItem secondaryWeaponSlot;
+    internal LootableItem armorSlot;
+    internal LootableItem helmetSlot;
+    internal LootableItem chestplateSlot;
+    internal LootableItem gaunletSlot;
+    internal LootableItem bootSlot;
+    internal LootableItem ringSlot;
+    internal LootableItem amuletSlot;
+
 
 
 

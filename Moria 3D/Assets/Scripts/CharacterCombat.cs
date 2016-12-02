@@ -4,7 +4,6 @@ using System;
 
 public class CharacterCombat : MonoBehaviour  {
     public int weaponDamage;
-    public int critcalBonus;
     public int weaponDamageBonus;
     public int itemBonusDamage;
     public int strBonusDamage;//strenght bonus damage
@@ -20,14 +19,19 @@ public class CharacterCombat : MonoBehaviour  {
     public int AC;
 
 
-    private int health;
     internal int constitution;
 
 
+    public int health;
+
+
+    InventoryManager myINventory;
 
     // Use this for initialization
     void Start () {
-	
+        myINventory = FindObjectOfType<InventoryManager>();
+       // Weapon w = (Weapon) myINventory.weaponSlot;
+       // weaponDamage = w.Damage;
 	}
 	
 	// Update is called once per frame
@@ -86,6 +90,23 @@ public class CharacterCombat : MonoBehaviour  {
 
     private void Kill()
     {
+
+    }
+
+    public void Values()
+    {
+        Weapon w = (Weapon)myINventory.weaponSlot;
+        weaponDamage = w.Damage;
+
+        weaponDamageBonus = w.DamBuff;
+
+        weaponHitBonus = w.HitBuff;
+
+        weightOfWeapon = (int)w.Weight;
+
+        LootableItem a =(LootableItem) myINventory.amuletSlot;
+        //itemBonusDamage = a.
+
 
     }
 
