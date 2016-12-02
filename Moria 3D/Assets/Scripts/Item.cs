@@ -12,6 +12,9 @@ public class Item {
         //placeholders for mesh replacement
         cube = 4,
         sphere = 5,
-        cylinder = 6
+        cylinder = 6,
+        Weapon = 7,
+        Armor = 8,
+        Food = 9
     }
 }
