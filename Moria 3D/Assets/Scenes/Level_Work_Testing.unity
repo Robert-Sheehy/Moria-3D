@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 478644069}
   - 114: {fileID: 478644070}
+  - 114: {fileID: 478644071}
   m_Layer: 0
   m_Name: CurrentLevel
   m_TagString: Untagged
@@ -127,6 +128,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 446092, guid: 4dd7574ec20dbbf46b8eccbf646006d7, type: 2}
   doorPrefab: {fileID: 469602, guid: d33b9ce129953d84d90b08807a1590c8, type: 2}
+  player: {fileID: 0}
+  objManager: {fileID: 0}
+--- !u!114 &478644071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 478644068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4984ce3943345d4fada99a176bbdbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WallPreFab: {fileID: 0}
+  WeaponPrefab: {fileID: 137896, guid: 6a3cd9fc709f54b4aac09e18901ee104, type: 2}
+  FoodPrefab: {fileID: 135916, guid: 3251e5d5a1092ed4d82c11ddb0b182bc, type: 2}
+  ArmorPrefab: {fileID: 125178, guid: a2251a0d71075b04bb85cc0fe9f468d3, type: 2}
 --- !u!1 &970961859
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class Armor:LootableItem
         Cost = cost;
 
 
-        ID = 11;
+        ID = (int)Item.list.Armor;
        
     }
 

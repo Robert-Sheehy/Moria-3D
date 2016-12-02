@@ -48,7 +48,7 @@ public class DungeonGenerator
         for(int i = 0; i < amount; i++)
         {
             Ivector2 itemPos = getRandomEmptySpace();
-            maze[itemPos.x, itemPos.y] = UnityEngine.Random.Range(10, 13);
+            maze[itemPos.x, itemPos.y] = UnityEngine.Random.Range((int)Item.list.Weapon, (int)Item.list.Food + 1);
         }
     }
 

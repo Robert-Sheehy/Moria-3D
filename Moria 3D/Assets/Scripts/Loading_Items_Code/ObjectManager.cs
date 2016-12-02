@@ -157,8 +157,6 @@ public class ObjectManager : MonoBehaviour {
 
             case Item.list.wall:
                 return Instantiate(WallPreFab);
-                break;
-
 
             case Item.list.Food:
                 ItemControl newFood = Instantiate(FoodPrefab).GetComponent<ItemControl>();
@@ -166,7 +164,6 @@ public class ObjectManager : MonoBehaviour {
                 newFood.myDetails = getRandomFood(3);
                 print(newFood.myDetails.Description);
                 return newFood.gameObject;
-                break;
 
             case Item.list.Armor:
                 ItemControl newArmor = Instantiate(ArmorPrefab).GetComponent<ItemControl>();
@@ -174,7 +171,6 @@ public class ObjectManager : MonoBehaviour {
                 newArmor.myDetails = getRandomArmor(3);
                 print(newArmor.myDetails.Description);
                 return newArmor.gameObject;
-                break;
 
             case Item.list.Weapon:
 

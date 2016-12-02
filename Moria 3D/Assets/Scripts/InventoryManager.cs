@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour {
     int curInventoryNumWeight;
     List<LootableItem> inventoryItems;
 
-    internal List<LootableItem> equipeditems;
+    internal List<LootableItem> equipedItems;
     public GameObject text;
     int maxInventoryNumberOfItems = 20;
 
@@ -54,13 +54,13 @@ public class InventoryManager : MonoBehaviour {
             Debug.Log("Equiped " + equipedItems[0].Description);
         }
 
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
             AddItem(GetComponent<ObjectManager>().Weapons[inventoryItems.Count]);
                 Debug.Log("Added " + inventoryItems[inventoryItems.Count - 1].Description);
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             AddItem(GetComponent<ObjectManager>().Armors[inventoryItems.Count]);
             Debug.Log("Added " + inventoryItems[inventoryItems.Count - 1].Description);

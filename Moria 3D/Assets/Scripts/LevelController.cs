@@ -23,20 +23,18 @@ public class LevelController : MonoBehaviour
     private int PosI, PosJ, DirI, DirJ;
     private int maxNumbersOfDoorsinRooms = 3;
 
-    private ObjectManager objManager;
+    public ObjectManager objManager;
 
     void Start()
     {
         dungeon = new DungeonGenerator(dimensionOfWorld, minRoomDimension, maxRoomDimension, numberOfRooms, maxNumbersOfDoorsinRooms);
         player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        objManager = gameObject.AddComponent<ObjectManager>();
+        objManager = GetComponent<ObjectManager>();
         Ivector2 emptySpace = dungeon.getRandomEmptySpace();
         player.transform.position = correctPosition(emptySpace.x, emptySpace.y);
         player.AddComponent<CharacterControl>();
         spawned = new bool[dimensionOfWorld, dimensionOfWorld];
         world = dungeon.generate();
-     
-
     }
 
     public Item.list getDoor(Ivector2 position)
@@ -120,22 +118,27 @@ public class LevelController : MonoBehaviour
         GameObject result = new GameObject();
         result.transform.position = new Vector3(float.MinValue, 0, float.MinValue);
         c = Physics.OverlapSphere(correctPosition(position.x, position.y), 0.25F);
-        if(c.Length > 0)
+        if (c.Length > 0)
         {
-            foreach(Collider collider in c)
+            foreach (Collider collider in c)
             {
-                if(Vector3.Distance(collider.transform.position, result.transform.position) > Vector3.Distance(collider.transform.position, correctPosition(position.x, position.y))){
-                    foreach(GameObject g in ignorelist)
+                if (Vector3.Distance(collider.transform.position, result.transform.position) > Vector3.Distance(collider.transform.position, correctPosition(position.x, position.y)))
+                {
+                    foreach (GameObject g in ignorelist)
                     {
-                        if(collider.gameObject != g)
+                        if (collider.gameObject != g)
                         {
                             result = collider.gameObject;
                         }
                     }
                 }
             }
-        } else throw (new System.Exception("No GameObject found at position " + position.x + ", " + position.y));
-
+        }
+        else
+        {
+            Destroy(result);
+            throw (new System.Exception("No GameObject found at position " + position.x + ", " + position.y));
+        }
         return result;
     }
 
@@ -166,6 +169,21 @@ public class LevelController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             dungeon.TestgetAvailableDirections(PosI, PosJ, DirI, DirJ);
         */
+
+        Ivector2 IPlayerPos = new Ivector2((int)player.GetComponent<Transform>().position.x, (int)player.GetComponent<Transform>().position.y);
+
+        GameObject itemInWorld = null;
+        try
+        {
+            itemInWorld = getGameObjectAtWorldPosition(IPlayerPos, new GameObject[] { player });
+        }
+        catch (System.Exception e) { }
+        if (itemInWorld != null)
+        {
+            Debug.Log(itemInWorld.name);
+            
+            swapWorldObjects(IPlayerPos, Item.list.emptySpace);
+        }
     }
 
     private void spawnRandomItem(Item.list type, Ivector2 worldPosition)
@@ -176,13 +194,13 @@ public class LevelController : MonoBehaviour
         LootableItem item = null;
         switch (type)
         {
-            case Item.list.armor:
+            case Item.list.Armor:
                 item = getRandomItem(objManager.Armors.ToArray());
                 break;
-            case Item.list.food:
+            case Item.list.Food:
                 item = getRandomItem(objManager.Foods.ToArray());
                 break;
-            case Item.list.weapon:
+            case Item.list.Weapon:
                 item = getRandomItem(objManager.Weapons.ToArray());
                 break;
         }
@@ -329,18 +347,12 @@ public class LevelController : MonoBehaviour
                 currentItem = Instantiate(doorPrefab, correctPosition(i, j), Quaternion.identity);
                 currentItem.name = "door";
                 break;
+        }
 
-            case (int)Item.list.armor:
-                spawnRandomItem(Item.list.armor, new Ivector2(i, j));
-                break;
-
-            case (int)Item.list.weapon:
-                spawnRandomItem(Item.list.armor, new Ivector2(i, j));
-                break;
-
-            case (int)Item.list.food:
-                spawnRandomItem(Item.list.armor, new Ivector2(i, j));
-                break;
+        if(charId >= 100)
+        {
+            GameObject itm = objManager.getObjectWithIdOf((Item.list)charId);
+            itm.GetComponent<Transform>().position = correctPosition(i, j);
         }
     }
 

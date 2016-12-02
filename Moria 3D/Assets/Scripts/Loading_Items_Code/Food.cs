@@ -15,7 +15,7 @@ public class Food:LootableItem
         FoodVal = foodVal;
         Level = level;
         Cost = cost;
-        ID = 12;
+        ID = (int)Item.list.Food;
 
     }
 }
