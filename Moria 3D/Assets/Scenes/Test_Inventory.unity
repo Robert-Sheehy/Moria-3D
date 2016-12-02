@@ -253,7 +253,6 @@ GameObject:
   - 23: {fileID: 601620420}
   - 114: {fileID: 601620419}
   - 114: {fileID: 601620424}
-  - 114: {fileID: 601620425}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -343,17 +342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1468585782}
---- !u!114 &601620425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 601620418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4984ce3943345d4fada99a176bbdbfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &737545518
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +354,7 @@ GameObject:
   - 92: {fileID: 737545521}
   - 124: {fileID: 737545520}
   - 81: {fileID: 737545519}
+  - 114: {fileID: 737545524}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -441,6 +430,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &737545524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 737545518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4984ce3943345d4fada99a176bbdbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WallPreFab: {fileID: 139132, guid: 4dd7574ec20dbbf46b8eccbf646006d7, type: 2}
+  WeaponPrefab: {fileID: 137896, guid: 6a3cd9fc709f54b4aac09e18901ee104, type: 2}
+  FoodPrefab: {fileID: 135916, guid: 3251e5d5a1092ed4d82c11ddb0b182bc, type: 2}
+  ArmorPrefab: {fileID: 125178, guid: a2251a0d71075b04bb85cc0fe9f468d3, type: 2}
 --- !u!1 &1117465294
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +682,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1748268430}
   - 114: {fileID: 1748268429}
-  - 114: {fileID: 1748268431}
   m_Layer: 0
   m_Name: InventoryManager
   m_TagString: Untagged
@@ -711,14 +714,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!114 &1748268431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1748268428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4984ce3943345d4fada99a176bbdbfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

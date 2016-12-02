@@ -17,11 +17,11 @@ public class TestObjects : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.W))
             theObjectManager.getObjectWithIdOf(Item.list.wall);
         if (Input.GetKeyDown(KeyCode.S))
-            theObjectManager.getObjectWithIdOf(Item.list.Weapon);
+            theObjectManager.getObjectWithIdOf(Item.list.weapon);
         if (Input.GetKeyDown(KeyCode.F))
-            theObjectManager.getObjectWithIdOf(Item.list.Food);
+            theObjectManager.getObjectWithIdOf(Item.list.food);
         if (Input.GetKeyDown(KeyCode.A))
-            theObjectManager.getObjectWithIdOf(Item.list.Armor);
+            theObjectManager.getObjectWithIdOf(Item.list.armor);
 
     }
 }

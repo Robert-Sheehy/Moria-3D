@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System;
 
 public class InventoryManager : MonoBehaviour {
-    int maxInventoryWeight = 20;
-    int curInventoryNumWeight;
-    List<LootableItem> inventoryItems;
-
-    internal List<LootableItem> equipeditems;
     public GameObject text;
     int maxInventoryNumberOfItems = 20;
+    int maxInventoryWeight = 20;
+    int curInventoryNumWeight;
+
+    internal List<LootableItem> inventoryItems;
+    internal List<LootableItem> equipedItems;
+    
 
     internal LootableItem weaponSlot;
     internal LootableItem mainWeaponSlot;
@@ -24,13 +25,16 @@ public class InventoryManager : MonoBehaviour {
     internal LootableItem ringSlot;
     internal LootableItem amuletSlot;
 
-
+    ObjectManager objectManager;
 
 
     // Use this for initialization
     void Start () {
         inventoryItems = new List<LootableItem>();
         equipedItems = new List<LootableItem>();
+
+        objectManager = FindObjectOfType<ObjectManager>();
+
 
         /*foreach (LootableItem LI in this.GetComponent<ObjectManager>().Weapons)
         {
@@ -54,15 +58,15 @@ public class InventoryManager : MonoBehaviour {
             Debug.Log("Equiped " + equipedItems[0].Description);
         }
 
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
-            AddItem(GetComponent<ObjectManager>().Weapons[inventoryItems.Count]);
+            AddItem(objectManager.Weapons[inventoryItems.Count]);
                 Debug.Log("Added " + inventoryItems[inventoryItems.Count - 1].Description);
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            AddItem(GetComponent<ObjectManager>().Armors[inventoryItems.Count]);
+            AddItem(objectManager.Armors[inventoryItems.Count]);
             Debug.Log("Added " + inventoryItems[inventoryItems.Count - 1].Description);
         }
 
@@ -84,6 +88,12 @@ public class InventoryManager : MonoBehaviour {
             equipItem(inventoryItems.Count - 1);
             Debug.Log(weaponSlot.Description + " is equiped");
             Debug.Log(armorSlot.Description + " is equiped");
+        }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            objectManager.getObjectWithIdOf(Item.list.weapon);
+
         }
 
 	}
@@ -158,19 +168,33 @@ public class InventoryManager : MonoBehaviour {
         }
     }
 
+
     void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("item"))
         {
-            foreach(Weapon wpn in GetComponent<ObjectManager>().Weapons)
+            foreach(Weapon wpn in objectManager.Weapons)
             {
                 if (wpn.Description == col.name)
                 {
-                    AddItem(wpn);
-                    Debug.Log(wpn.Description + " added to inventory");
+                    if(!inventoryFull())
+                    {
+                        AddItem(wpn);
+                        Destroy(col.gameObject);
+                        Debug.Log(wpn.Description + " added to inventory");
+                    }
+                    else
+                    {
+                        Debug.Log("Inventory is full, Can't add item");
+                    }
                 }
             }
-            Destroy(col.gameObject);
         }
     }
+
+
+
+
+
+
 }

@@ -21,8 +21,8 @@ public class ObjectManager : MonoBehaviour {
     void Start () {
 
         loadAllItems();
-	
-	}
+        if (WeaponPrefab) print("Have Prefab"); else print("Dont Have Prefab");
+    }
 
     private void loadAllItems()
     {
@@ -152,6 +152,7 @@ public class ObjectManager : MonoBehaviour {
 
     public GameObject getObjectWithIdOf(Item.list Id)
     {
+        if (WeaponPrefab) print("Have Prefab"); else print("Dont Have Prefab");
         switch (Id)
         {
 
@@ -160,7 +161,7 @@ public class ObjectManager : MonoBehaviour {
                 break;
 
 
-            case Item.list.Food:
+            case Item.list.food:
                 ItemControl newFood = Instantiate(FoodPrefab).GetComponent<ItemControl>();
 
                 newFood.myDetails = getRandomFood(3);
@@ -168,7 +169,7 @@ public class ObjectManager : MonoBehaviour {
                 return newFood.gameObject;
                 break;
 
-            case Item.list.Armor:
+            case Item.list.armor:
                 ItemControl newArmor = Instantiate(ArmorPrefab).GetComponent<ItemControl>();
 
                 newArmor.myDetails = getRandomArmor(3);
@@ -176,9 +177,12 @@ public class ObjectManager : MonoBehaviour {
                 return newArmor.gameObject;
                 break;
 
-            case Item.list.Weapon:
-
-                ItemControl newWeapon = Instantiate(WeaponPrefab).GetComponent<ItemControl>();
+            case Item.list.weapon:
+                print("instantiating Weapon");
+                if (WeaponPrefab) print("Have Prefab");
+                GameObject hold = (GameObject) Instantiate(WeaponPrefab,Vector3.zero,Quaternion.identity);
+                if (hold) print("Have instantiated");
+                ItemControl newWeapon = hold.GetComponent<ItemControl>();
 
                 newWeapon.myDetails = getRandomWeapon(3);
                 print(newWeapon.myDetails.Description);
