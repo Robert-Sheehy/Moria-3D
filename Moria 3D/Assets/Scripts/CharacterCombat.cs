@@ -104,10 +104,24 @@ public class CharacterCombat : MonoBehaviour  {
 
         weightOfWeapon = (int)w.Weight;
 
-        LootableItem a =(LootableItem) myINventory.amuletSlot;
-        //itemBonusDamage = a.
+        Ring a =(Ring) myINventory.ringSlot;
+        itemBonusDamage += a.Damage;
+        itemHitBonus += a.Hit;
 
+        Armor b = (Armor)myINventory.armorSlot;
+        AC += b.AC;
 
+        Armor c = (Armor)myINventory.helmetSlot;
+        AC += c.AC;
+
+        Armor d = (Armor)myINventory.chestplateSlot;
+        AC += d.AC;
+
+        Armor e = (Armor)myINventory.gaunletSlot;
+        AC += e.AC;
+
+        Armor f = (Armor)myINventory.bootSlot;
+        AC += f.AC;
     }
 
 }

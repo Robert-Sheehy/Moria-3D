@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Ammo:LootableItem
+public class Ring:LootableItem
 {
-    private string Type;
-    private int Damage;
-    private int Hit;
-    private float Weight;
-    private int Range;
+    internal string Type;
+    internal int Damage;
+    internal int Hit;
+    internal float Weight;
+    internal int Range;
 }
